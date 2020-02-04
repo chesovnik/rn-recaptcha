@@ -21,7 +21,7 @@ const generateTheWebViewContent = siteKey => {
   const originalForm =
     '<!DOCTYPE html><html><head>' +
     '<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge">' +
-    '<script src="https://recaptcha.google.cn/recaptcha/api.js"></script>' +
+    '<script src="https://recaptcha.google.com/recaptcha/api.js?explicit&hl=ru"></script>' +
     '<script type="text/javascript"> var onloadCallback = function() { }; ' +
     'var onDataCallback = function(response) { console.log(response); window.postMessage(response);  }; ' +
     'var onDataExpiredCallback = function(error) {  window.postMessage("expired"); }; ' +
