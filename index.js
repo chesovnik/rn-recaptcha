@@ -25,8 +25,8 @@ const generateTheWebViewContent = siteKey => {
     'var onDataCallback = function(response) { window.ReactNativeWebView.postMessage(response);  }; ' +
     'var onDataExpiredCallback = function(error) {  window.ReactNativeWebView.postMessage("expired"); }; ' +
     'var onDataErrorCallback = function(error) {  window.ReactNativeWebView.postMessage("error"); } </script>' +
-    '</head><body style="background-color:#0f0f0f">' +
-    '<div style="text-align: center"><div class="g-recaptcha" style="display: inline-block"' +
+    '</head><body style="background-color:transparent; justify-content: center; align-items: center; display: flex">' +
+    '<div style="text-align: center"><div class="g-recaptcha" style="margin-top: -100px"' +
     'data-theme="dark"' +
     'data-sitekey="' +
     siteKey +
