@@ -11,7 +11,6 @@ const patchPostMessageJsCode = `(${String(function() {
   patchedPostMessage.toString = function() {
     return String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
   };
-//   window.postMessage = patchedPostMessage;
   window.postMessage = function(patchedPostMessage) {
     window.ReactNativeWebView.postMessage(patchedPostMessage);
   }
@@ -19,15 +18,16 @@ const patchPostMessageJsCode = `(${String(function() {
 
 const generateTheWebViewContent = siteKey => {
   const originalForm =
-    '<!DOCTYPE html><html><head>' +
+    '<!DOCTYPE html"><html><head>' +
     '<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge">' +
     '<script src="https://recaptcha.google.com/recaptcha/api.js?explicit&hl=ru"></script>' +
     '<script type="text/javascript"> var onloadCallback = function() { }; ' +
-    'var onDataCallback = function(response) { console.log(response); window.postMessage(response);  }; ' +
-    'var onDataExpiredCallback = function(error) {  window.postMessage("expired"); }; ' +
-    'var onDataErrorCallback = function(error) {  window.postMessage("error"); } </script>' +
-    '</head><body>' +
+    'var onDataCallback = function(response) { window.ReactNativeWebView.postMessage(response);  }; ' +
+    'var onDataExpiredCallback = function(error) {  window.ReactNativeWebView.postMessage("expired"); }; ' +
+    'var onDataErrorCallback = function(error) {  window.ReactNativeWebView.postMessage("error"); } </script>' +
+    '</head><body style="background-color:#0f0f0f">' +
     '<div style="text-align: center"><div class="g-recaptcha" style="display: inline-block"' +
+    'data-theme="dark"' +
     'data-sitekey="' +
     siteKey +
     '" data-callback="onDataCallback" ' +
@@ -42,6 +42,7 @@ const RNReCaptcha = ({ onMessage, siteKey, style, url }) => (
     mixedContentMode={'always'}
     onMessage={onMessage}
     javaScriptEnabled
+    useWebKit
     injectedJavaScript={patchPostMessageJsCode}
     automaticallyAdjustContentInsets
     style={[{ backgroundColor: 'transparent', width: '100%' }, style]}
